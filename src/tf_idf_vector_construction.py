@@ -1,6 +1,4 @@
-import pandas as pd
-from utils.helperfunctions import computetf_idf
+from utils.helper_functions import compute_tfidf
 
-def computetfidfvectors(resumes, jobdescriptions):
-    tfidfvectors, jobdescriptionvectors = computetfidf(resumes, job_descriptions)
-    return tfidfvectors, jobdescriptionvectors
+def compute_tfidf_vectors(resumes, job_descriptions, vocabulary=None):
+    return compute_tfidf(resumes, job_descriptions, vocabulary)

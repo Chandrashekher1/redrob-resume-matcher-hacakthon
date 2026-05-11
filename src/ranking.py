@@ -1,15 +1,14 @@
-import pandas as pd
-from src.cosinesimilarity import computecosine_similarity
+from src.cosine_similarity import computecosinesimilarity
 
-def rankcandidates(resumes, jobdescriptions, tfidfvectors, jobdescriptionvectors):
+def rank_candidates(resumes, job_descriptions, tfidf_vectors, job_description_vectors):
     rankings = []
-    for jobdescription in jobdescriptions:
-        jobdescriptionvector = jobdescriptionvectors[jobdescriptions.index(jobdescription)]
+    for jd_index, job_description in enumerate(job_descriptions):
+        job_description_vector = job_description_vectors[jd_index]
         candidate_rankings = []
-        for resume in resumes:
-            tfidfvector = tfidfvectors[resumes.index(resume)]
-            similarity = computecosinesimilarity(tfidfvector, jobdescriptionvector)
-            candidate_rankings.append((resume['Candidate'], similarity))
+        for resume_index, resume in enumerate(resumes):
+            tfidf_vector = tfidf_vectors[resume_index]
+            similarity = computecosinesimilarity(tfidf_vector, job_description_vector)
+            candidate_rankings.append((resume.get('Candidate', ''), similarity))
         candidate_rankings.sort(key=lambda x: x[1], reverse=True)
         rankings.append(candidate_rankings)
     return rankings
